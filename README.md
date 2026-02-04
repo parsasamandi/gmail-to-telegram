@@ -2,6 +2,8 @@
 
 This Python script automatically forwards unread Gmail emails to your Telegram chat.
 
+> **Quick Start**: Want to run on GitHub Actions? See [Quick Setup Guide](.github/QUICK_SETUP.md) for a streamlined setup process.
+
 ## Features
 
 - Monitors your Gmail inbox for unread emails
