@@ -9,10 +9,6 @@ services:
       - ./token.json:/app/token.json
       # Optional: mount data directory for persistent storage
       - ./data:/app/data
-    environment:
-      # Load environment variables from .env file
-      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
-      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
     env_file:
       - .env
     # Optional: Set custom check interval (in minutes)

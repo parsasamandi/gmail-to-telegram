@@ -9,6 +9,8 @@ __pycache__
 *.so
 
 # Environment files
+# Note: .env should exist on the host machine for docker-compose
+# but shouldn't be baked into the Docker image (env vars are passed at runtime)
 .env
 .env.local
 
