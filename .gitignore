@@ -24,3 +24,9 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Data directory
+data/
+
+# Docker volumes
+docker-compose.override.yml

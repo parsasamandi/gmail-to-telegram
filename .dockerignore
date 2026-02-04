@@ -1,0 +1,41 @@
+# Git files
+.git
+.gitignore
+
+# Python cache
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+
+# Environment files
+.env
+.env.local
+
+# Credentials (will be mounted as volumes)
+credentials.json
+token.json
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.log
+*.tmp
+data/
+
+# Documentation
+README.md
