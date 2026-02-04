@@ -160,7 +160,9 @@ python email_to_telegram.py 10  # checks every 10 minutes
 - Check that TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID are correct
 
 **Token expiration:**
-- Gmail tokens can expire. If authentication fails, regenerate `token.json` locally and update the GMAIL_TOKEN secret
+- Gmail OAuth tokens automatically refresh during normal operation
+- Manual regeneration is only needed if the token becomes invalid (e.g., password change, revoked access, or security issues)
+- If authentication fails, regenerate `token.json` locally and update the GMAIL_TOKEN secret
 
 **Rate limits:**
 - The default schedule runs every 5 minutes. Adjust the cron schedule in `.github/workflows/email-forwarder.yml` if needed

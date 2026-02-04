@@ -27,12 +27,16 @@ jobs:
         
     - name: Create credentials.json from secret
       run: |
-        echo '${{ secrets.GMAIL_CREDENTIALS }}' > credentials.json
+        cat > credentials.json <<'EOF'
+        ${{ secrets.GMAIL_CREDENTIALS }}
+        EOF
         
     - name: Create token.json from secret (if exists)
       run: |
         if [ -n "${{ secrets.GMAIL_TOKEN }}" ]; then
-          echo '${{ secrets.GMAIL_TOKEN }}' > token.json
+          cat > token.json <<'EOF'
+        ${{ secrets.GMAIL_TOKEN }}
+        EOF
         fi
         
     - name: Set up environment variables
@@ -43,13 +47,3 @@ jobs:
     - name: Run email forwarder
       run: |
         python email_to_telegram.py --once
-        
-    - name: Save token.json for next run
-      if: always()
-      run: |
-        if [ -f token.json ]; then
-          echo "token.json exists - you should save it to GMAIL_TOKEN secret"
-          echo "TOKEN_CONTENT<<EOF" >> $GITHUB_ENV
-          cat token.json >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-        fi
