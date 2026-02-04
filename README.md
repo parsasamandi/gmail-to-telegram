@@ -9,6 +9,11 @@ This Python script automatically forwards unread Gmail emails to your Telegram c
 - Marks forwarded emails as read in Gmail
 - Runs continuously or as a one-time check
 - Configurable check intervals
+- **Docker support for easy hosting and deployment**
+
+## Quick Start
+
+For quick deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## Setup
 
