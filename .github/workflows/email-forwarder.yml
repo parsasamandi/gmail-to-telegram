@@ -1,0 +1,55 @@
+name: Gmail to Telegram Forwarder
+
+on:
+  # Run every 5 minutes
+  schedule:
+    - cron: '*/5 * * * *'
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  forward-emails:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+        
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        
+    - name: Create credentials.json from secret
+      run: |
+        echo '${{ secrets.GMAIL_CREDENTIALS }}' > credentials.json
+        
+    - name: Create token.json from secret (if exists)
+      run: |
+        if [ -n "${{ secrets.GMAIL_TOKEN }}" ]; then
+          echo '${{ secrets.GMAIL_TOKEN }}' > token.json
+        fi
+        
+    - name: Set up environment variables
+      run: |
+        echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}" >> $GITHUB_ENV
+        echo "TELEGRAM_CHAT_ID=${{ secrets.TELEGRAM_CHAT_ID }}" >> $GITHUB_ENV
+        
+    - name: Run email forwarder
+      run: |
+        python email_to_telegram.py --once
+        
+    - name: Save token.json for next run
+      if: always()
+      run: |
+        if [ -f token.json ]; then
+          echo "token.json exists - you should save it to GMAIL_TOKEN secret"
+          echo "TOKEN_CONTENT<<EOF" >> $GITHUB_ENV
+          cat token.json >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+        fi
