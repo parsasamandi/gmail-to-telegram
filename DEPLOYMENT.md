@@ -11,6 +11,8 @@ Before deploying, ensure you have:
 
 ## Fastest Deployment (Docker Compose)
 
+> **Note:** These examples use `docker compose` (Compose V2 syntax). If you have an older version, use `docker-compose` (with hyphen) instead.
+
 ### Step 1: Prepare Environment
 
 Create a `.env` file in the project root:
@@ -55,7 +57,7 @@ docker compose logs --tail=50
 
 ### Change Check Interval
 
-Edit `docker-compose.yml` and uncomment/modify:
+Edit `docker compose.yml` and uncomment/modify:
 ```yaml
 command: ["python", "email_to_telegram.py", "10"]  # Check every 10 minutes
 ```
@@ -136,7 +138,7 @@ docker compose config
 
 ### Messages not being marked as read
 - Check Gmail API permissions (should have 'modify' scope)
-- Verify token.json is being persisted (check volumes in docker-compose.yml)
+- Verify token.json is being persisted (check volumes in docker compose.yml)
 
 ## Support
 

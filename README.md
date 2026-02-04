@@ -88,6 +88,8 @@ Docker Compose is the easiest way to deploy this application in a container.
 - Gmail API credentials (`credentials.json`)
 - `.env` file with your Telegram configuration
 
+> **Note:** These examples use `docker compose` (Compose V2 syntax). If you have an older version, use `docker-compose` (with hyphen) instead.
+
 **Steps:**
 
 1. **Prepare your files:**
@@ -100,34 +102,34 @@ Docker Compose is the easiest way to deploy this application in a container.
 
 2. **Build and start the container:**
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 3. **First-time OAuth authentication:**
    - On first run, you'll need to authenticate with Gmail
    - Check the logs to get the authentication URL:
      ```bash
-     docker-compose logs -f
+     docker compose logs -f
      ```
    - Follow the URL, authenticate, and the token will be saved
 
 4. **Manage the service:**
    ```bash
    # View logs
-   docker-compose logs -f
+   docker compose logs -f
    
    # Stop the service
-   docker-compose down
+   docker compose down
    
    # Restart the service
-   docker-compose restart
+   docker compose restart
    
    # Update and rebuild
-   docker-compose up -d --build
+   docker compose up -d --build
    ```
 
 5. **Custom check interval:**
-   - Edit `docker-compose.yml` and uncomment/modify the `command` line:
+   - Edit `docker compose.yml` and uncomment/modify the `command` line:
      ```yaml
      command: ["python", "email_to_telegram.py", "10"]  # Check every 10 minutes
      ```
@@ -226,7 +228,7 @@ For deploying on a Linux server without Docker:
 **Check if the service is running:**
 ```bash
 # Docker Compose
-docker-compose ps
+docker compose ps
 
 # Docker
 docker ps | grep gmail-to-telegram
@@ -238,7 +240,7 @@ sudo systemctl status gmail-to-telegram
 **View logs:**
 ```bash
 # Docker Compose
-docker-compose logs -f
+docker compose logs -f
 
 # Docker
 docker logs -f gmail-to-telegram-bot
