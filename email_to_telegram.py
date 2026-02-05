@@ -13,10 +13,10 @@
 #    - Authenticate with Gmail API (login process if needed)
 #
 # 3. RUNNING MODES:
-#    - ONE-TIME MODE (--once flag):
+#    - ONE-TIME MODE (default or --once):
 #      * Check for unread emails once
 #      * Process them and exit
-#    - CONTINUOUS MODE (default):
+#    - CONTINUOUS MODE (--continuous):
 #      * Keep checking for new emails every few minutes
 #      * Run until user stops with Ctrl+C
 #
@@ -384,14 +384,23 @@ def main():
     # sys.argv is a list of command line arguments
     # sys.argv[0] is the program name, [1] is the first argument
     import sys
-    if len(sys.argv) > 1 and sys.argv[1] == '--once':
-        # If they passed '--once', run once and exit
-        bot.run_once()
-    else:
-        # Otherwise, run continuously
-        # If they passed a number, use it as interval, else default to 5
-        interval = int(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1].isdigit() else 5
+    args = sys.argv[1:]
+
+    # Default behavior: run once (no automatic scheduling)
+    if '--continuous' in args:
+        # If they passed '--continuous', run continuously
+        # If they provided a number after --continuous, use it as interval
+        interval = 5
+        try:
+            idx = args.index('--continuous')
+            if len(args) > idx + 1 and args[idx + 1].isdigit():
+                interval = int(args[idx + 1])
+        except ValueError:
+            pass
         bot.run_continuous(interval_minutes=interval)
+    else:
+        # Run once (explicitly or by default)
+        bot.run_once()
 
 if __name__ == '__main__':
     # This is a special Python thing

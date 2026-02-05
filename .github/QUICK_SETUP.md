@@ -1,6 +1,6 @@
 # Quick Setup Guide for GitHub Actions
 
-This guide will help you set up the Gmail to Telegram forwarder to run automatically on GitHub Actions.
+This guide will help you set up the Gmail to Telegram forwarder to run manually on GitHub Actions.
 
 ## Prerequisites
 
@@ -67,19 +67,17 @@ Add these 4 secrets:
 
 1. Go to the **Actions** tab in your repository
 2. Click "I understand my workflows, go ahead and enable them"
-3. The workflow will run automatically every 5 minutes
-4. You can also click "Run workflow" to trigger it manually
+3. Click "Run workflow" to trigger it manually
 
 ## That's It! 🎉
 
-Your emails will now be forwarded to Telegram automatically every 5 minutes.
+Your emails will now be forwarded to Telegram whenever you manually trigger the workflow.
 
 ## Verify It's Working
 
 1. Send yourself a test email
-2. Wait up to 5 minutes
+2. Go to Actions tab and manually trigger the workflow
 3. Check your Telegram for the forwarded message
-4. Or go to Actions tab and manually trigger the workflow
 
 ## Troubleshooting
 

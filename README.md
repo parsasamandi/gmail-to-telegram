@@ -1,6 +1,6 @@
 # Gmail to Telegram Forwarder
 
-This Python script automatically forwards unread Gmail emails to your Telegram chat.
+This Python script forwards unread Gmail emails to your Telegram chat.
 
 > **Quick Start**: Want to run on GitHub Actions? See [Quick Setup Guide](.github/QUICK_SETUP.md) for a streamlined setup process.
 
@@ -9,20 +9,20 @@ This Python script automatically forwards unread Gmail emails to your Telegram c
 - Monitors your Gmail inbox for unread emails
 - Forwards email details (subject, sender, date, content) to Telegram
 - Marks forwarded emails as read in Gmail
-- Runs continuously or as a one-time check
-- Configurable check intervals
+- Runs once by default (no automatic scheduling)
+- Optional continuous mode with explicit flag
 
 ## Setup Options
 
 You can run this forwarder in two ways:
-- **Option A**: Run on GitHub Actions (recommended - no local setup needed)
+- **Option A**: Run on GitHub Actions (manual trigger)
 - **Option B**: Run locally on your machine
 
 ---
 
 ## Option A: Run on GitHub Actions (Recommended)
 
-This option runs the email forwarder automatically on GitHub's servers every 5 minutes. No local setup required!
+This option runs the email forwarder on GitHub's servers only when you manually trigger the workflow. No local setup required!
 
 ### Prerequisites
 
@@ -84,8 +84,7 @@ Add these secrets:
 
 1. Go to the "Actions" tab in your GitHub repository
 2. Enable workflows if prompted
-3. The workflow will automatically run every 5 minutes
-4. You can also manually trigger it using the "Run workflow" button
+3. Use the "Run workflow" button to trigger it manually
 
 ### 6. Monitor Execution
 
@@ -135,14 +134,14 @@ pip install -r requirements.txt
 python email_to_telegram.py --once
 ```
 
-**Continuous monitoring (default, checks every 5 minutes):**
+**Continuous monitoring (explicit, checks every 5 minutes):**
 ```bash
-python email_to_telegram.py
+python email_to_telegram.py --continuous
 ```
 
 **Continuous monitoring with custom interval:**
 ```bash
-python email_to_telegram.py 10  # checks every 10 minutes
+python email_to_telegram.py --continuous 10  # checks every 10 minutes
 ```
 
 ## Security Notes
@@ -167,7 +166,6 @@ python email_to_telegram.py 10  # checks every 10 minutes
 - If authentication fails, regenerate `token.json` locally and update the GMAIL_TOKEN secret
 
 **Rate limits:**
-- The default schedule runs every 5 minutes. Adjust the cron schedule in `.github/workflows/email-forwarder.yml` if needed
 - Gmail API has rate limits. The workflow processes up to 5 unread emails per run
 
 ### Local Run Issues
